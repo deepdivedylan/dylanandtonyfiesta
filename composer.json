@@ -1,5 +1,5 @@
 {
 	"require": {
-		"fennb/phirehose": "@stable"
+		"owlycode/streaming-bird": "@stable"
 	}
 }
