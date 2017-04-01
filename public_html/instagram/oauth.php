@@ -21,13 +21,14 @@ try {
 	} else {
 		$options = ["http" => [
 			"method" => "POST",
-			"header" => "Content-type: application/x-www-form-urlencoded\r\n",
+			"header" => "Content-type: application/x-www-form-urlencoded",
 			"content" => http_build_query([
 				"client_id" => $instagram->clientId,
 				"client_secret" => $instagram->clientSecret,
 				"code" => $_GET["code"],
 				"grant_type" => "authorization_code",
-				"redirect_uri" => "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"]
+				"redirect_uri" => "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"],
+				"scope" => "public_content"
 				])
 			]];
 		$context = stream_context_create($options);
