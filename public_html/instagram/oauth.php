@@ -35,7 +35,7 @@ try {
 		if($reply === false) {
 			throw(new \RuntimeException("Unable to parse Instagram's reply", 400));
 		} else if(empty($reply->access_token) === true) {
-			throw(new \RuntimeException("Instagram denied access", 403));
+			throw(new \RuntimeException("Instagram denied access", 401));
 		} else {
 			$instagram->accessToken = $reply->access_token;
 			$config["instagram"] = json_encode($instagram);
