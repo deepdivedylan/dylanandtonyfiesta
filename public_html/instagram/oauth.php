@@ -6,7 +6,7 @@ try {
 	$instagram = json_decode($config["instagram"]);
 
 	if(empty($_GET["code"]) === true) {
-		$urlglue = "https://api.instagram.com/oauth/authorize/?client_id=" . $instagram->clientId . "&redirect_uri=" . urlencode("https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"])  . "&response_type=code";
+		$urlglue = "https://api.instagram.com/oauth/authorize/?client_id=" . $instagram->clientId . "&redirect_uri=" . urlencode("https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"])  . "&response_type=code&scope=public_content";
 		?>
 		<!DOCTYPE html>
 		<html>
@@ -27,8 +27,7 @@ try {
 				"client_secret" => $instagram->clientSecret,
 				"code" => $_GET["code"],
 				"grant_type" => "authorization_code",
-				"redirect_uri" => "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"],
-				"scope" => "public_content"
+				"redirect_uri" => "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"]
 				])
 			]];
 		$context = stream_context_create($options);
