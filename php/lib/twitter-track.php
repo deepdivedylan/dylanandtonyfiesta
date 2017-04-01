@@ -8,13 +8,12 @@ use OwlyCode\StreamingBird\StreamingBird;
 try {
 	$config = readConfig("/etc/apache2/encrypted-config/dylanandtonyfiesta.ini");
 	$twitter = json_decode($config["twitter"]);
-	var_dump($twitter);
 
 	$bird = new StreamingBird($twitter->consumerKey, $twitter->consumerSecret, $twitter->accessToken, $twitter->accessTokenSecret);
 
 	$bird
 		->createStreamReader(StreamReader::METHOD_FILTER)
-		->setTrack(["#luzverde"])
+		->setTrack(["#gopdnd"])
 		->consume(function ($tweet) {
 			echo "------------------------" . PHP_EOL;
 			echo json_encode($tweet) . PHP_EOL;
