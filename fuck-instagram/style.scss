@@ -1,0 +1,136 @@
+/* VARIABLES */
+
+$brown: #352E1F;
+$blue: #1DA1F2;
+$green: #9CDE9F;
+$red: #E16F7C;
+$mid-tone: rgba(#000, .65);
+$mid-grey: #EEE;
+$light-grey: #F7F7F7;
+
+$border-radius: 4px;
+
+/* OVERRIDES */
+
+.navbar-inverse {
+	background: transparent;
+	border-color: transparent;
+	margin-bottom: 0;
+}
+
+.jumbotron {
+	background: transparent;
+}
+
+/* GENERAL */
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.nav-container {
+	background: $brown;
+}
+
+.inverted {
+	color: #fff;
+}
+
+.jumbotron {
+	h1 {
+		font-weight: 100;
+	}
+}
+
+.section-header {
+	font-weight: 100;
+
+	border-bottom: 1px solid;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+
+	border: 1px solid $blue;
+	border-radius: $border-radius;
+
+	.card-title {
+		padding: 1rem;
+		margin: 0;
+
+		background: $blue;
+		color: #fff;
+
+		font-size: 2rem;
+	}
+
+	.card-body {
+		padding: 1rem;
+
+		.card-image {
+			img {
+				border-radius: $border-radius;
+			}
+		}
+
+		.card-text {
+			// 
+		}
+	}
+
+	.card-footer {
+		display: flex;
+
+		padding: 1rem;
+
+		color: $mid-tone;
+		font-style: italic;
+
+		font-size: .9em;
+
+		.card-footer-author {
+			a {
+				color: inherit;
+			}
+		}
+		.card-footer-separator {
+			flex-grow: 1;
+			position: relative;
+
+			margin: 0 1rem;
+			height: 1px;
+			top: .6em;
+
+			border-top: 1px solid $mid-grey;
+		}
+		.card-footer-date {
+			// 
+		}
+	}
+}
+
+.quote {
+	margin: 3rem 0;
+
+	border-color: $blue;
+
+	footer {
+		margin-top: 2rem;
+	}
+}
+
+.couples-picture {
+	padding: 1rem;
+
+	border: 1px solid $mid-grey;
+	border-radius: $border-radius;
+
+	img {
+		border-radius: $border-radius;
+	}
+}
+
+footer {
+	margin-top: 20px;
+}

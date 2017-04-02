@@ -1,0 +1,75 @@
+/* VARIABLES */
+/* OVERRIDES */
+.navbar-inverse {
+  background: transparent;
+  border-color: transparent;
+  margin-bottom: 0; }
+
+.jumbotron {
+  background: transparent; }
+
+/* GENERAL */
+body {
+  font-family: 'Roboto', sans-serif; }
+
+.nav-container {
+  background: #352E1F; }
+
+.inverted {
+  color: #fff; }
+
+.jumbotron h1 {
+  font-weight: 100; }
+
+.section-header {
+  font-weight: 100;
+  border-bottom: 1px solid; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #1DA1F2;
+  border-radius: 4px; }
+  .card .card-title {
+    padding: 1rem;
+    margin: 0;
+    background: #1DA1F2;
+    color: #fff;
+    font-size: 2rem; }
+  .card .card-body {
+    padding: 1rem; }
+    .card .card-body .card-image img {
+      border-radius: 4px; }
+  .card .card-footer {
+    display: flex;
+    padding: 1rem;
+    color: rgba(0, 0, 0, 0.65);
+    font-style: italic;
+    font-size: .9em; }
+    .card .card-footer .card-footer-author a {
+      color: inherit; }
+    .card .card-footer .card-footer-separator {
+      flex-grow: 1;
+      position: relative;
+      margin: 0 1rem;
+      height: 1px;
+      top: .6em;
+      border-top: 1px solid #EEE; }
+
+.quote {
+  margin: 3rem 0;
+  border-color: #1DA1F2; }
+  .quote footer {
+    margin-top: 2rem; }
+
+.couples-picture {
+  padding: 1rem;
+  border: 1px solid #EEE;
+  border-radius: 4px; }
+  .couples-picture img {
+    border-radius: 4px; }
+
+footer {
+  margin-top: 20px; }
+
+/*# sourceMappingURL=style.css.map */
