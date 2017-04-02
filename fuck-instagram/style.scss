@@ -86,16 +86,12 @@ body {
 	}
 
 	.card-body {
-		padding: 1rem;
-
 		.card-image {
-			img {
-				border-radius: $border-radius;
-			}
+			// 
 		}
 
 		.card-text {
-			// 
+			padding: 1rem;
 		}
 	}
 
