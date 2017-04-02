@@ -29,5 +29,6 @@
 				<h1>#DylanAndTonyFiesta</h1>
 			</div>
 		</div>
+		<?php require("partials/blurb.php"); ?>
 	</div>
 </div>

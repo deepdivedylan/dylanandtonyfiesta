@@ -21,10 +21,23 @@ body {
 .jumbotron h1 {
   font-weight: 100;
   text-align: center; }
+.jumbotron p {
+  font-size: 14px; }
 
 .section-header {
   font-weight: 100;
   border-bottom: 1px solid; }
+
+.blurb-title {
+  font-size: 2.2rem;
+  font-weight: 100;
+  border-bottom: 1px solid; }
+
+.blurb-text {
+  text-indent: 3rem; }
+  .blurb-text::first-letter {
+    font-size: 1.1em;
+    font-weight: 600; }
 
 .feed .section-header {
   margin-bottom: 0 !important; }
