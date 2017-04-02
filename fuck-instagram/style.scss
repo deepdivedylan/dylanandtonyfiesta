@@ -39,6 +39,7 @@ body {
 .jumbotron {
 	h1 {
 		font-weight: 100;
+		text-align: center;
 	}
 }
 
@@ -48,12 +49,27 @@ body {
 	border-bottom: 1px solid;
 }
 
+.twitter.feed, .instagram.feed {
+	// 
+}
+
+.feed {
+	.section-header {
+		margin-bottom: 0 !important;
+	}
+	.row {
+		margin-bottom: 1rem;
+	}
+}
+
 .card {
 	display: flex;
 	flex-direction: column;
 
 	border: 1px solid $blue;
 	border-radius: $border-radius;
+
+	background: #fff;
 
 	.card-title {
 		padding: 1rem;
@@ -62,7 +78,11 @@ body {
 		background: $blue;
 		color: #fff;
 
-		font-size: 2rem;
+		font-size: 1.5rem;
+
+		a {
+			color: inherit;
+		}
 	}
 
 	.card-body {

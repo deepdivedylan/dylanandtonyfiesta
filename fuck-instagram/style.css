@@ -19,23 +19,32 @@ body {
   color: #fff; }
 
 .jumbotron h1 {
-  font-weight: 100; }
+  font-weight: 100;
+  text-align: center; }
 
 .section-header {
   font-weight: 100;
   border-bottom: 1px solid; }
 
+.feed .section-header {
+  margin-bottom: 0 !important; }
+.feed .row {
+  margin-bottom: 1rem; }
+
 .card {
   display: flex;
   flex-direction: column;
   border: 1px solid #1DA1F2;
-  border-radius: 4px; }
+  border-radius: 4px;
+  background: #fff; }
   .card .card-title {
     padding: 1rem;
     margin: 0;
     background: #1DA1F2;
     color: #fff;
-    font-size: 2rem; }
+    font-size: 1.5rem; }
+    .card .card-title a {
+      color: inherit; }
   .card .card-body {
     padding: 1rem; }
     .card .card-body .card-image img {
