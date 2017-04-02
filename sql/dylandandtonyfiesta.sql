@@ -13,7 +13,7 @@ CREATE TABLE message (
 	messageId VARCHAR(18) NOT NULL,
 	messageContent VARCHAR(140) NOT NULL,
 	messageProfileId VARCHAR(18) NOT NULL,
-	FOREIGN KEY messageProfileId REFERENCES profile(profileId),
+	FOREIGN KEY(messageProfileId) REFERENCES profile(profileId),
 	PRIMARY KEY(messageId)
 );
 
@@ -22,6 +22,6 @@ CREATE TABLE media (
 	mediaMessageId VARCHAR(18) NOT NULL,
 	mediaUrl VARCHAR(64) NOT NULL,
 	mediaType VARCHAR(10) NOT NULL,
-	FOREIGN KEY mediaMessageId REFERENCES message(messageId),
+	FOREIGN KEY(mediaMessageId) REFERENCES message(messageId),
 	PRIMARY KEY(mediaId)
 );
