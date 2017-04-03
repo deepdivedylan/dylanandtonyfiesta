@@ -2,6 +2,8 @@
 
 namespace Deepdivedylan\Dylanandtonyfiesta;
 
+require_once(__DIR__ . "/autoload.php");
+
 /**
  * Profile Class
  *
@@ -10,6 +12,8 @@ namespace Deepdivedylan\Dylanandtonyfiesta;
  * @package Deepdivedylan\Dylanandtonyfiesta
  **/
 class Message implements \JsonSerializable {
+	use ValidateDate;
+
 	/**
 	 * id of this Message from the service
 	 * @var string $messageId
@@ -20,6 +24,11 @@ class Message implements \JsonSerializable {
 	 * @var string $messageContent
 	 **/
 	private $messageContent;
+	/**
+	 * date and time of this Message
+	 * @var \DateTime $messageDateTime
+	 **/
+	private $messageDateTime;
 	/**
 	 * profile id of this Message
 	 * @var string $messageProfileId
@@ -106,6 +115,31 @@ class Message implements \JsonSerializable {
 		}
 		
 		$this->messageContent = $newMessageContent;
+	}
+
+	/**
+	 * accessor method for message date time
+	 *
+	 * @return \DateTime current value of message date time
+	 **/
+	public function getMessageDateTime(): \DateTime {
+		return($this->messageDateTime);
+	}
+
+	/**
+	 * mutator method for message date time
+	 *
+	 * @param string|\DateTime $newMessageDateTime new value of message date time
+	 **/
+	public function setMessageDateTime($newMessageDateTime) {
+		try {
+			$newMessageDateTime = self::validateDateTime($newMessageDateTime);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		$this->messageDateTime = $newMessageDateTime;
 	}
 
 	/**
