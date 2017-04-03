@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS profile;
-DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS media;
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS profile;
 
 CREATE TABLE profile (
 	profileId VARCHAR(18) NOT NULL,
@@ -20,8 +20,8 @@ CREATE TABLE message (
 CREATE TABLE media (
 	mediaId VARCHAR(18) NOT NULL,
 	mediaMessageId VARCHAR(18) NOT NULL,
-	mediaUrl VARCHAR(64) NOT NULL,
 	mediaType VARCHAR(10) NOT NULL,
+	mediaUrl VARCHAR(64) NOT NULL,
 	FOREIGN KEY(mediaMessageId) REFERENCES message(messageId),
 	PRIMARY KEY(mediaId)
 );
