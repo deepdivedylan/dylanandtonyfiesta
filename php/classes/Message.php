@@ -2,6 +2,13 @@
 
 namespace Deepdivedylan\Dylanandtonyfiesta;
 
+/**
+ * Profile Class
+ *
+ * Generic message container for messages on social media
+ *
+ * @package Deepdivedylan\Dylanandtonyfiesta
+ **/
 class Message {
 	/**
 	 * id of this Message from the service

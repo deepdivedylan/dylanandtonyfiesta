@@ -31,10 +31,13 @@ class Profile {
 	/**
 	 * constructor for this Profile
 	 *
-	 * @param string $newProfileId
-	 * @param string $newProfileName
-	 * @param string $profileService
-	 */
+	 * @param string $newProfileId new value of profile id
+	 * @param string $newProfileName new value of profile name
+	 * @param string $newProfileService new value of profile service
+	 * @throws \InvalidArgumentException if values are empty or insecure
+	 * @throws \RangeException if values are too large
+	 * @throws \TypeError if type declarations fail
+	 **/
 	public function __construct(string $newProfileId, string $newProfileName, string $newProfileService) {
 		try {
 			$this->setProfileId($newProfileId);
