@@ -160,7 +160,7 @@ class Profile implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getProfileByProfileId(\PDO $pdo, string $profileId) : ?Profile {
+	public static function getProfileByProfileId(\PDO $pdo, string $profileId) : ?Profile {
 		// sanitize the profile id before searching
 		$profileId = trim($profileId);
 		$profileId = filter_var($profileId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -199,7 +199,7 @@ class Profile implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getAllProfiles(\PDO $pdo) : \SplFixedArray {
+	public static function getAllProfiles(\PDO $pdo) : \SplFixedArray {
 		// create query template
 		$query = "SELECT profileId, profileName, profileService FROM profile";
 		$statement = $pdo->prepare($query);

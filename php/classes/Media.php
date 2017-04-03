@@ -179,7 +179,7 @@ class Media implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getMediaByMediaId(\PDO $pdo, string $mediaId) : ?Media {
+	public static function getMediaByMediaId(\PDO $pdo, string $mediaId) : ?Media {
 		// sanitize the media id before searching
 		$mediaId = trim($mediaId);
 		$mediaId = filter_var($mediaId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);

@@ -180,7 +180,7 @@ class Message implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getMessageByMessageId(\PDO $pdo, string $messageId) : ?Message {
+	public static function getMessageByMessageId(\PDO $pdo, string $messageId) : ?Message {
 		// sanitize the message id before searching
 		$messageId = trim($messageId);
 		$messageId = filter_var($messageId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -220,7 +220,7 @@ class Message implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getMessageByMessageProfileId(\PDO $pdo, string $messageProfileId) : \SplFixedArray {
+	public static function getMessageByMessageProfileId(\PDO $pdo, string $messageProfileId) : \SplFixedArray {
 		// sanitize the message profile id before searching
 		$messageProfileId = trim($messageProfileId);
 		$messageProfileId = filter_var($messageProfileId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -260,7 +260,7 @@ class Message implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public function getAllMessages(\PDO $pdo) : \SplFixedArray {
+	public static function getAllMessages(\PDO $pdo) : \SplFixedArray {
 		// create query template
 		$query = "SELECT messageId, messageProfileId, messageContent, messageDateTime FROM message";
 		$statement = $pdo->prepare($query);
