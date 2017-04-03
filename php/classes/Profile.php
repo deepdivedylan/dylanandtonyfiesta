@@ -134,13 +134,98 @@ class Profile implements \JsonSerializable {
 		$this->profileService = $newProfileService;
 	}
 
+	/**
+	 * inserts this Profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		// create query template
+		$query = "INSERT INTO profile(profileId, profileName, profileService) VALUES(:profileId, :profileName, :profileService)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["profileId" => $this->profileId, "profileName" => $this->profileName, "profileService" => $this->profileService];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the Profile by profile id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $profileId profile id to search for
+	 * @return Profile|null Profile found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getProfileByProfileId(\PDO $pdo, string $profileId) : ?Profile {
+		// sanitize the profile id before searching
+		$profileId = trim($profileId);
+		$profileId = filter_var($profileId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($profileId) === true) {
+			throw(new \PDOException("profile id is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT profileId, profileName, profileService FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+
+		// bind the profile id to the place holder in the template
+		$parameters = ["profileId" => $profileId];
+		$statement->execute($parameters);
+
+		try {
+			$profile = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$profile = new Profile($row["profileId"], $row["profileName"], $row["profileService"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		return($profile);
+	}
+
+	/**
+	 * gets all Profiles
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray all Profiles found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getAllProfiles(\PDO $pdo) : \SplFixedArray {
+		// create query template
+		$query = "SELECT profileId, profileName, profileService FROM profile";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileName"], $row["profileService"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() {
+	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
 		return($fields);
 	}
