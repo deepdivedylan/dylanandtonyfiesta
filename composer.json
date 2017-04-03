@@ -1,6 +1,8 @@
 {
 	"require": {
 		"guzzlehttp/guzzle": "@stable",
-		"owlycode/streaming-bird": "@stable"
+		"owlycode/streaming-bird": "@stable",
+		"phpunit/dbunit": "@stable",
+		"phpunit/phpunit": "@stable"
 	}
 }
