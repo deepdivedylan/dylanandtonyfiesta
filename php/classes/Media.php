@@ -171,6 +171,46 @@ class Media implements \JsonSerializable {
 	}
 
 	/**
+	 * gets the Media by media id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $mediaId media id to search for
+	 * @return Media|null Media found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getMediaByMediaId(\PDO $pdo, string $mediaId) : ?Media {
+		// sanitize the media id before searching
+		$mediaId = trim($mediaId);
+		$mediaId = filter_var($mediaId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($mediaId) === true) {
+			throw(new \PDOException("media id is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT mediaId, mediaMessageId, mediaType, mediaUrl FROM media WHERE mediaId = :mediaId";
+		$statement = $pdo->prepare($query);
+
+		// bind the profile id to the place holder in the template
+		$parameters = ["mediaId" => $mediaId];
+		$statement->execute($parameters);
+
+		try {
+			$media = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$media = new Media($row["mediaId"], $row["mediaMessageId"], $row["mediaType"], $row["messageUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		return($media);
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
