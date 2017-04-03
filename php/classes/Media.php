@@ -1,6 +1,6 @@
 <?php
 
-namespace Deepdivedylan\Dylanandtonyfiesta;
+namespace Deepdivedylan\DylanAndTonyFiesta;
 
 /**
  * Media Class

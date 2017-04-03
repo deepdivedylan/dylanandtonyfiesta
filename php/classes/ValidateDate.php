@@ -1,5 +1,5 @@
 <?php
-namespace Deepdivedylan\Dylanandtonyfiesta;
+namespace Deepdivedylan\DylanAndTonyFiesta;
 
 /**
  * Trait to Validate a mySQL Date

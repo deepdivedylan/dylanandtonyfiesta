@@ -1,6 +1,6 @@
 <?php
 
-namespace Deepdivedylan\Dylanandtonyfiesta;
+namespace Deepdivedylan\DylanAndTonyFiesta;
 
 require_once(__DIR__ . "/autoload.php");
 
