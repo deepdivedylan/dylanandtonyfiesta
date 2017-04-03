@@ -20,6 +20,11 @@ class Message implements \JsonSerializable {
 	 **/
 	private $messageId;
 	/**
+	 * profile id of this Message
+	 * @var string $messageProfileId
+	 **/
+	private $messageProfileId;
+	/**
 	 * content of this Message
 	 * @var string $messageContent
 	 **/
@@ -29,29 +34,21 @@ class Message implements \JsonSerializable {
 	 * @var \DateTime $messageDateTime
 	 **/
 	private $messageDateTime;
-	/**
-	 * profile id of this Message
-	 * @var string $messageProfileId
-	 **/
-	private $messageProfileId;
 
 	/**
 	 * constructor for this Message
 	 *
 	 * @param string $newMessageId new value of message id
+	 * @param string $newMessageProfileId new value of message profile id
 	 * @param string $newMessageContent new value of message content
 	 * @param string|\DateTime $newMessageDateTime new value of message date time
-	 * @param string $newMessageProfileId new value of message profile id
-	 * @throws \InvalidArgumentException if values are empty or insecure
-	 * @throws \RangeException if values are too large
-	 * @throws \TypeError if type declarations fail
-	 **/
-	public function __construct($newMessageId, $newMessageContent, $newMessageDateTime, $newMessageProfileId) {
+	 */
+	public function __construct(string $newMessageId, string $newMessageProfileId, string $newMessageContent, string $newMessageDateTime) {
 		try {
 			$this->setMessageId($newMessageId);
+			$this->setMessageProfileId($newMessageProfileId);
 			$this->setMessageContent($newMessageContent);
 			$this->setMessageDateTime($newMessageDateTime);
-			$this->setMessageProfileId($newMessageContent);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -172,6 +169,116 @@ class Message implements \JsonSerializable {
 		}
 		
 		$this->messageProfileId = $newMessageProfileId;
+	}
+
+	/**
+	 * gets the Message by message id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $messageId message id to search for
+	 * @return Message|null Message found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getMessageByMessageId(\PDO $pdo, string $messageId) : ?Message {
+		// sanitize the message id before searching
+		$messageId = trim($messageId);
+		$messageId = filter_var($messageId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($messageId) === true) {
+			throw(new \PDOException("message id is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT messageId, messageProfileId, messageContent, messageDateTime FROM message WHERE messageId = :messageId";
+		$statement = $pdo->prepare($query);
+
+		// bind the message id to the place holder in the template
+		$parameters = ["messageId" => $messageId];
+		$statement->execute($parameters);
+
+		try {
+			$message = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$message = new Message($row["messageId"], $row["messageProfileId"], $row["messageContent"], $row["messageDateTime"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		return($message);
+	}
+
+	/**
+	 * gets Messages by message profile id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $messageProfileId message profile id to search for
+	 * @return \SplFixedArray all Messages found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getMessageByMessageProfileId(\PDO $pdo, string $messageProfileId) : \SplFixedArray {
+		// sanitize the message profile id before searching
+		$messageProfileId = trim($messageProfileId);
+		$messageProfileId = filter_var($messageProfileId, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($messageProfileId) === true) {
+			throw(new \PDOException("message profile id is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT messageId, messageProfileId, messageContent, messageDateTime FROM message WHERE messageProfileId = :messageProfileId";
+		$statement = $pdo->prepare($query);
+
+		// bind the message id to the place holder in the template
+		$parameters = ["messageProfileId" => $messageProfileId];
+		$statement->execute($parameters);
+
+		$messages = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$message = new Message($row["messageId"], $row["messageProfileId"], $row["messageContent"], $row["messageDateTime"]);
+				$messages[$messages->key()] = $message;
+				$messages->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		return($messages);
+	}
+
+	/**
+	 * gets all Messages
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray all Messages found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public function getAllMessages(\PDO $pdo) : \SplFixedArray {
+		// create query template
+		$query = "SELECT messageId, messageProfileId, messageContent, messageDateTime FROM message";
+		$statement = $pdo->prepare($query);
+
+		$messages = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$message = new Message($row["messageId"], $row["messageProfileId"], $row["messageContent"], $row["messageDateTime"]);
+				$messages[$messages->key()] = $message;
+				$messages->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		return($messages);
 	}
 
 	/**
