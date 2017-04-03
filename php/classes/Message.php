@@ -40,15 +40,17 @@ class Message implements \JsonSerializable {
 	 *
 	 * @param string $newMessageId new value of message id
 	 * @param string $newMessageContent new value of message content
+	 * @param string|\DateTime $newMessageDateTime new value of message date time
 	 * @param string $newMessageProfileId new value of message profile id
 	 * @throws \InvalidArgumentException if values are empty or insecure
 	 * @throws \RangeException if values are too large
 	 * @throws \TypeError if type declarations fail
 	 **/
-	public function __construct($newMessageId, $newMessageContent, $newMessageProfileId) {
+	public function __construct($newMessageId, $newMessageContent, $newMessageDateTime, $newMessageProfileId) {
 		try {
 			$this->setMessageId($newMessageId);
 			$this->setMessageContent($newMessageContent);
+			$this->setMessageDateTime($newMessageDateTime);
 			$this->setMessageProfileId($newMessageContent);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -179,6 +181,7 @@ class Message implements \JsonSerializable {
 	 **/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
+		$fields["messageDateTime"] = round(floatval($this->messageDateTime->format("U.u")) * 1000);
 		return($fields);
 	}
 }
