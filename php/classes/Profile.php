@@ -9,7 +9,7 @@ namespace Deepdivedylan\Dylanandtonyfiesta;
  *
  * @package Deepdivedylan\Dylanandtonyfiesta
  **/
-class Profile {
+class Profile implements \JsonSerializable {
 	/**
 	 * id of this Profile from the service
 	 * @var string $profileId
@@ -135,4 +135,13 @@ class Profile {
 	}
 
 
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return($fields);
+	}
 }

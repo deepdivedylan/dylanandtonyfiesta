@@ -9,7 +9,7 @@ namespace Deepdivedylan\Dylanandtonyfiesta;
  *
  * @package Deepdivedylan\Dylanandtonyfiesta
  **/
-class Message {
+class Message implements \JsonSerializable {
 	/**
 	 * id of this Message from the service
 	 * @var string $messageId
@@ -137,6 +137,14 @@ class Message {
 		
 		$this->messageProfileId = $newMessageProfileId;
 	}
-	
-	
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return($fields);
+	}
 }

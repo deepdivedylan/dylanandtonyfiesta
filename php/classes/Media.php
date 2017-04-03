@@ -9,7 +9,7 @@ namespace Deepdivedylan\Dylanandtonyfiesta;
  *
  * @package Deepdivedylan\Dylanandtonyfiesta
  **/
-class Media {
+class Media implements \JsonSerializable {
 	/**
 	 * id of this Media from the service
 	 * @var string $mediaId
@@ -168,5 +168,15 @@ class Media {
 			throw(new \RangeException("media url is too large"));
 		}
 		$this->mediaUrl = $newMediaUrl;
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return($fields);
 	}
 }
