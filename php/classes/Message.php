@@ -52,7 +52,7 @@ class Message implements \JsonSerializable {
 			$this->setMessageProfileId($newMessageContent);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage()));
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
 
