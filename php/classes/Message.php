@@ -282,6 +282,7 @@ class Message implements \JsonSerializable {
 		// create query template
 		$query = "SELECT messageId, messageProfileId, messageContent, messageDateTime FROM message";
 		$statement = $pdo->prepare($query);
+		$statement->execute();
 
 		$messages = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);

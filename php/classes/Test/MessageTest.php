@@ -54,4 +54,50 @@ class MessageTest extends DylanAndTonyFiestaTest {
 		$this->assertEquals($pdoMessage->getMessageContent(), $message->getMessageContent());
 		$this->assertEquals($pdoMessage->getMessageDateTime(), $message->getMessageDateTime());
 	}
+
+	/**
+	 * tests getting messages by message profile id
+	 **/
+	public function testGetMessageByMessageProfileId() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("message");
+
+		$message = new Message($this->VALID_MESSAGEID, $this->profile->getProfileId(), $this->VALID_MESSAGECONTENT, $this->VALID_MESSAGEDATETIME);
+		$message->insert($this->getPDO());
+
+		$messages = Message::getMessageByMessageProfileId($this->getPDO(), $this->profile->getProfileId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("message"));
+		$this->assertCount(1, $messages);
+		$this->assertContainsOnlyInstancesOf("Deepdivedylan\\DylanAndTonyFiesta\\Message", $messages);
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoMessage = $messages[0];
+		$this->assertEquals($pdoMessage->getMessageId(), $message->getMessageId());
+		$this->assertEquals($pdoMessage->getMessageProfileId(), $message->getMessageProfileId());
+		$this->assertEquals($pdoMessage->getMessageContent(), $message->getMessageContent());
+		$this->assertEquals($pdoMessage->getMessageDateTime(), $message->getMessageDateTime());
+	}
+
+	/**
+	 * tests getting all messages
+	 **/
+	public function testGetAllMessages() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("message");
+
+		$message = new Message($this->VALID_MESSAGEID, $this->profile->getProfileId(), $this->VALID_MESSAGECONTENT, $this->VALID_MESSAGEDATETIME);
+		$message->insert($this->getPDO());
+
+		$messages = Message::getAllMessages($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("message"));
+		$this->assertCount(1, $messages);
+		$this->assertContainsOnlyInstancesOf("Deepdivedylan\\DylanAndTonyFiesta\\Message", $messages);
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoMessage = $messages[0];
+		$this->assertEquals($pdoMessage->getMessageId(), $message->getMessageId());
+		$this->assertEquals($pdoMessage->getMessageProfileId(), $message->getMessageProfileId());
+		$this->assertEquals($pdoMessage->getMessageContent(), $message->getMessageContent());
+		$this->assertEquals($pdoMessage->getMessageDateTime(), $message->getMessageDateTime());
+	}
 }
