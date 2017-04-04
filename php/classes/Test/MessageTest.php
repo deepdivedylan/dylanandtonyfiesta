@@ -27,12 +27,18 @@ class MessageTest extends DylanAndTonyFiestaTest {
 	 **/
 	protected $profile = null;
 
+	/**
+	 * setup parent objects
+	 **/
 	public function setUp() {
 		$this->profile = new Profile("847297430630522880", "SenatorArlo", "T");
 		$this->profile->insert($this->getPDO());
 		$this->VALID_MESSAGEDATETIME = new \DateTime();
 	}
 
+	/**
+	 * test inserting a valid message
+	 **/
 	public function testInsertValidMessage() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("message");
@@ -41,6 +47,7 @@ class MessageTest extends DylanAndTonyFiestaTest {
 		$message->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("message"));
 		$pdoMessage = Message::getMessageByMessageId($this->getPDO(), $this->VALID_MESSAGEID);
 		$this->assertEquals($pdoMessage->getMessageId(), $message->getMessageId());
 		$this->assertEquals($pdoMessage->getMessageProfileId(), $message->getMessageProfileId());
