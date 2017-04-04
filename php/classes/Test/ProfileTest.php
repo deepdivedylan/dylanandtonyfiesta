@@ -7,7 +7,7 @@ require_once(dirname(__DIR__) . "/autoload.php");
 
 class ProfileTest extends DylanAndTonyFiestaTest {
 	/**
-	 * valid profile id for to use
+	 * valid profile id to use
 	 * @var string $VALID_PROFILEID
 	 **/
 	protected $VALID_PROFILEID = "847297430630522880";
@@ -34,10 +34,10 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("profile"));
-		$this->assertSame($pdoProfile->getProfileId(), $profile->getProfileId());
-		$this->assertSame($pdoProfile->getProfileName(), $profile->getProfileName());
-		$this->assertSame($pdoProfile->getProfileService(), $profile->getProfileService());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+		$this->assertEquals($pdoProfile->getProfileId(), $profile->getProfileId());
+		$this->assertEquals($pdoProfile->getProfileName(), $profile->getProfileName());
+		$this->assertEquals($pdoProfile->getProfileService(), $profile->getProfileService());
 	}
 
 	/**
@@ -56,9 +56,9 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 		$this->assertContainsOnlyInstancesOf("Deepdivedylan\\DylanAndTonyFiesta\\Profile", $profiles);
 
 		$pdoProfile = $profiles[0];
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("profile"));
-		$this->assertSame($pdoProfile->getProfileId(), $profile->getProfileId());
-		$this->assertSame($pdoProfile->getProfileName(), $profile->getProfileName());
-		$this->assertSame($pdoProfile->getProfileService(), $profile->getProfileService());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+		$this->assertEquals($pdoProfile->getProfileId(), $profile->getProfileId());
+		$this->assertEquals($pdoProfile->getProfileName(), $profile->getProfileName());
+		$this->assertEquals($pdoProfile->getProfileService(), $profile->getProfileService());
 	}
 }
