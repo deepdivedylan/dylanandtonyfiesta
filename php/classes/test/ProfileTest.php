@@ -22,6 +22,9 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 	 **/
 	protected $VALID_PROFILESERVICE = "T";
 
+	/**
+	 * test inserting valid profile
+	 **/
 	public function testInsertValidProfile() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("profile");
@@ -36,5 +39,24 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 		$this->assertSame($pdoProfile->getProfileService(), $profile->getProfileService());
 	}
 
-	
+	/**
+	 * test grabbing all profiles
+	 **/
+	public function testGetAllProfiles() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("profile");
+
+		$profile = new Profile($this->VALID_PROFILEID, $this->VALID_PROFILENAME, $this->VALID_PROFILESERVICE);
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$profiles = Profile::getAllProfiles($this->getPDO());
+		$this->assertCount(1, $profiles);
+		$this->assertContainsOnlyInstancesOf("Deepdivedylan\\DylanAndTonyFiesta\\Profile", $profiles);
+
+		$pdoProfile = $profiles[0];
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("profile"));
+		$this->assertSame($pdoProfile->getProfileId(), $profile->getProfileId());
+		$this->assertSame($pdoProfile->getProfileName(), $profile->getProfileName());
+		$this->assertSame($pdoProfile->getProfileService(), $profile->getProfileService());
+	}
 }
