@@ -30,6 +30,7 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 		$numRows = $this->getConnection()->getRowCount("profile");
 
 		$profile = new Profile($this->VALID_PROFILEID, $this->VALID_PROFILENAME, $this->VALID_PROFILESERVICE);
+		$profile->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoProfile = Profile::getProfileByProfileId($this->getPDO(), $profile->getProfileId());
@@ -47,6 +48,7 @@ class ProfileTest extends DylanAndTonyFiestaTest {
 		$numRows = $this->getConnection()->getRowCount("profile");
 
 		$profile = new Profile($this->VALID_PROFILEID, $this->VALID_PROFILENAME, $this->VALID_PROFILESERVICE);
+		$profile->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$profiles = Profile::getAllProfiles($this->getPDO());
