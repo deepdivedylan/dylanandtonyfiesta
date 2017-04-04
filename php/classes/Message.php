@@ -43,7 +43,7 @@ class Message implements \JsonSerializable {
 	 * @param string $newMessageContent new value of message content
 	 * @param string|\DateTime $newMessageDateTime new value of message date time
 	 */
-	public function __construct(string $newMessageId, string $newMessageProfileId, string $newMessageContent, string $newMessageDateTime) {
+	public function __construct(string $newMessageId, string $newMessageProfileId, string $newMessageContent, $newMessageDateTime) {
 		try {
 			$this->setMessageId($newMessageId);
 			$this->setMessageProfileId($newMessageProfileId);
@@ -169,6 +169,24 @@ class Message implements \JsonSerializable {
 		}
 		
 		$this->messageProfileId = $newMessageProfileId;
+	}
+
+	/**
+	 * inserts this Message into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		// create query template
+		$query = "INSERT INTO message(messageId, messageProfileId, messageContent, messageDateTime) VALUES(:messageId, :messageProfileId, :messageContent, :messageDateTime)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedDate = $this->messageDateTime->format("Y-m-d H:i:s.u");
+		$parameters = ["messageId" => $this->messageId, "messageProfileId" => $this->messageProfileId, "messageContent" => $this->messageContent, "messageDateTime" => $formattedDate];
+		$statement->execute($parameters);
 	}
 
 	/**
