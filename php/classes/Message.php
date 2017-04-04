@@ -301,6 +301,41 @@ class Message implements \JsonSerializable {
 	}
 
 	/**
+	 * gets all data and organizes it by Message
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return JsonObjectStorage organized map of all data by Message
+	 **/
+	public static function emergencyBeamOut(\PDO $pdo) : JsonObjectStorage {
+		// create query template
+		$query = "SELECT profileId, profileName, profileService, messageId, messageContent, messageDateTime, mediaId, mediaType, mediaUrl
+			FROM profile
+			INNER JOIN message ON profile.profileId = message.messageProfileId
+			LEFT OUTER JOIN media ON message.messageId = media.mediaMessageId";
+		$statement = $pdo->query($query);
+		$statement->execute();
+
+		$awayTeam = new JsonObjectStorage();
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$profile = new Profile($row["profileId"], $row["profileName"], $row["profileService"]);
+				$message = new Message($row["messageId"], $row["profileId"], $row["messageContent"], $row["messageDateTime"]);
+				$media = null;
+				if(empty($row["mediaId"]) === false) {
+					$media = new Media($row["mediaId"], $row["messageId"], $row["mediaType"], $row["mediaUrl"]);
+				}
+				$awayTeam->attach($message, ["profile" => $profile, "media" => $media]);
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		return($awayTeam);
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
