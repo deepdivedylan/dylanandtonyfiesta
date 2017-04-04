@@ -9,7 +9,13 @@ namespace Deepdivedylan\DylanAndTonyFiesta;
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 class JsonObjectStorage extends \SplObjectStorage implements \JsonSerializable {
-	public function jsonSerialize() {
+
+	/**
+	 * organizes the SplObjectStorage into associative JSON
+	 *
+	 * @return array organized fields to JSONify
+	 **/
+	public function jsonSerialize() : array {
 		$fields = [];
 		foreach($this as $object) {
 			$fields[] = $object;
