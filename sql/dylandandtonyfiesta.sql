@@ -13,7 +13,7 @@ CREATE TABLE message (
 	messageId VARCHAR(18) NOT NULL,
 	messageProfileId VARCHAR(18) NOT NULL,
 	messageContent VARCHAR(140) NOT NULL,
-	messageDateTime DATETIME NOT NULL,
+	messageDateTime DATETIME(6) NOT NULL,
 	FOREIGN KEY(messageProfileId) REFERENCES profile(profileId),
 	PRIMARY KEY(messageId)
 );
