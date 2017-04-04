@@ -55,7 +55,7 @@ abstract class DylanAndTonyFiestaTest extends TestCase {
 		// THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!!!!
 		$dataset->addTable("profile");
 		$dataset->addTable("message");
-		$dataset->addTable("profile");
+		$dataset->addTable("media");
 		return($dataset);
 	}
 
