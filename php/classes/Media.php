@@ -171,6 +171,23 @@ class Media implements \JsonSerializable {
 	}
 
 	/**
+	 * inserts this Media into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) {
+		// create query template
+		$query = "INSERT INTO media(mediaId, mediaMessageId, mediaType, mediaUrl) VALUES(:mediaId, :mediaMessageId, :mediaType, :mediaUrl)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["mediaId" => $this->mediaId, "mediaMessageId" => $this->mediaMessageId, "mediaType" => $this->mediaType, "mediaUrl" => $this->mediaUrl];
+		$statement->execute($parameters);
+	}
+
+	/**
 	 * gets the Media by media id
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -200,7 +217,7 @@ class Media implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$media = new Media($row["mediaId"], $row["mediaMessageId"], $row["mediaType"], $row["messageUrl"]);
+				$media = new Media($row["mediaId"], $row["mediaMessageId"], $row["mediaType"], $row["mediaUrl"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it

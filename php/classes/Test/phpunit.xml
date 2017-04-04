@@ -1,6 +1,7 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Dylan And Tony Fiesta">
+			<file>MediaTest.php</file>
 			<file>MessageTest.php</file>
 			<file>ProfileTest.php</file>
 		</testsuite>
