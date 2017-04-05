@@ -164,7 +164,7 @@ class Media implements \JsonSerializable {
 			throw(new \InvalidArgumentException("media url cannot be empty"));
 		}
 
-		if(strlen($newMediaUrl) > 64) {
+		if(strlen($newMediaUrl) > 255) {
 			throw(new \RangeException("media url is too large"));
 		}
 		$this->mediaUrl = $newMediaUrl;

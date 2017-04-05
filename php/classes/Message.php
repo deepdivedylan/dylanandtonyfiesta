@@ -109,7 +109,7 @@ class Message implements \JsonSerializable {
 			throw(new \InvalidArgumentException("message content cannot be empty"));
 		}
 
-		if(strlen($newMessageContent) > 140) {
+		if(strlen($newMessageContent) > 255) {
 			throw(new \RangeException("message content is too large"));
 		}
 		
