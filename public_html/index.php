@@ -7,8 +7,7 @@ $TITLE = "Dylan and Tony Fiesta - Home";
 <body>
 	<?php require("partials/header.php"); ?>
 	<div class="container">
-		<div class="col-md-6 twitter feed">
-			<?php require("partials/twitter-feed/twitter-feed.php"); ?>
+		<div id="twitterFeed" class="col-md-6 twitter feed">
 		</div>
 		<div class="col-md-6 instagram feed">
 			<?php require("partials/instagram-feed/instagram-feed.php"); ?>
