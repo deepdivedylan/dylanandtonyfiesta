@@ -1,13 +1,5 @@
 .DS_Store
 /.sync-config.cson
 /.idea
-/node_modules
-/typings
-/vendor
-/src/**/*.js
-/src/**/*.js.map
-/public_html/dist
-/public_html/index.php
-/npm-debug.log
-/fuck-instagram/.sass-cache
-/fuck-instagram/*.css.map
+/public_html/.sass-cache
+/public_html/*.css.map
