@@ -18,5 +18,8 @@
 	<!-- BS JS -->
 	<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<!-- Custom JS -->
+	<script src="/js/twitter-feed.js"></script>
+
 	<title><?php echo $TITLE; ?></title>
 </head>
