@@ -1,5 +1,5 @@
 <?php
-$TITLE = "Fuck Instagram - Couple";
+$TITLE = "Dylan and Tony Fiesta - Couple";
 ?>
 <!DOCTYPE html>
 <html lang="en">
