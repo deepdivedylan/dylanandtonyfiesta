@@ -1,5 +1,6 @@
 .DS_Store
 /.sync-config.cson
 /.idea
+/vendor
 /public_html/.sass-cache
 /public_html/*.css.map
