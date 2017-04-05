@@ -12,7 +12,7 @@ CREATE TABLE profile (
 CREATE TABLE message (
 	messageId VARCHAR(18) NOT NULL,
 	messageProfileId VARCHAR(18) NOT NULL,
-	messageContent VARCHAR(140) NOT NULL,
+	messageContent VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL,
 	messageDateTime DATETIME(6) NOT NULL,
 	FOREIGN KEY(messageProfileId) REFERENCES profile(profileId),
 	PRIMARY KEY(messageId)
@@ -22,7 +22,7 @@ CREATE TABLE media (
 	mediaId VARCHAR(18) NOT NULL,
 	mediaMessageId VARCHAR(18) NOT NULL,
 	mediaType VARCHAR(10) NOT NULL,
-	mediaUrl VARCHAR(64) NOT NULL,
+	mediaUrl VARCHAR(255) NOT NULL,
 	FOREIGN KEY(mediaMessageId) REFERENCES message(messageId),
 	PRIMARY KEY(mediaId)
 );
