@@ -6,10 +6,10 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<p class="blurb-text">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, repudiandae! Hic voluptate illum, veritatis illo consectetur facilis corrupti, aut ducimus minus quod, expedita inventore. Incidunt possimus minus iure quod tempore?
+			Two paths converged and would forever be walked as one. Differences celebrated and commonalities cherished, we will forever be together as one.
 		</p>
 		<p class="blurb-text">
-			Quod reiciendis impedit repellendus dolorem sint sit molestiae nisi, sunt cum ab aliquid voluptate possimus nesciunt earum aliquam recusandae maxime ipsam eius quas eum? Asperiores maxime, sapiente assumenda adipisci cumque.
+			Come celebrate with us in the union of two souls as we take and enjoy life's challenges and rewards. Eighth of April, two thousand seventeen at eleven 'o clock.
 		</p>
 	</div>
 </div>
