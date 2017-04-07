@@ -311,7 +311,8 @@ class Message implements \JsonSerializable {
 		$query = "SELECT profileId, profileName, profileService, messageId, messageContent, messageDateTime, mediaId, mediaType, mediaUrl
 			FROM profile
 			INNER JOIN message ON profile.profileId = message.messageProfileId
-			LEFT OUTER JOIN media ON message.messageId = media.mediaMessageId";
+			LEFT OUTER JOIN media ON message.messageId = media.mediaMessageId
+			ORDER BY messageDateTime DESC";
 		$statement = $pdo->query($query);
 		$statement->execute();
 
