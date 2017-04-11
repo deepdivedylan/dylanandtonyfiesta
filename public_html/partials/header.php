@@ -18,6 +18,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="./"><i class="fa fa-fw fa-camera-retro"></i> Feed</a></li>
 						<li><a href="couple.php"><i class="fa fa-fw fa-picture-o"></i> Couple</a></li>
+						<li><a href="wedding.php"><i class="fa fa-fw fa-heart"></i> Wedding</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
